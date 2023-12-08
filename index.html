@@ -17,16 +17,16 @@
 
         <div class="form">
             <h2>Đăng kí sản phẩm</h2>
-            <form>
+            <form action="">
                 <div class="form-input">
                     <label for="name" class="form-label">Name</label>
-                    <input type="name" class="form-control" id="name">
+                    <input type="name" class="form-control" name="name" id="name">
                 </div>
                 <div class="form-input">
                     <label for="price" class="form-label">Price</label>
-                    <input type="price" class="form-control" id="price">
+                    <input type="number" class="form-control" name="price" id="price">
                 </div>
-                <button type="submit" class="btn btn-create">Submit</button>
+                <button type="button" class="btn btn-create" onclick="addProduct()">Submit</button>
             </form>
         </div>
 
@@ -36,12 +36,20 @@
                 <thead>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Image</th>
                     <th>Price</th>
                     <th>Action</th>
                 </thead>
                 <tbody id="listProduct">
                     <!-- render bằng js -->
+                    <!-- <tr>
+                        <td class="text-center">${product[0]}</td>
+                        <td class="text-left">${product[1]}</td>
+                        <td class="text-right">${product[2]} đồng</td>
+                        <td>
+                            <button type="button" class="btn-edit">Edit</button>
+                            <button type="button" class="btn-delete">Delete</button>
+                        </td>
+                    </tr> -->
                 </tbody>
             </table>
         </div>

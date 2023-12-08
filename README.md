@@ -7,3 +7,10 @@ let products = [
     [3, "Laptop Asus TUF Gaming F15 FX506HE i7 11800H", "../image/image-3.jpg", 3000]
 ];
 ```
+```
+function displayProduct() {
+    // code
+}
+
+displayProduct();
+```
