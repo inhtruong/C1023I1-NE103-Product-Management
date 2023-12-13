@@ -17,8 +17,8 @@ function displayProducts() {
             <td class="text-left">${product[1]}</td>
             <td class="text-right">${product[2]} đồng</td>
             <td>
-                <button type="button" class="btn-edit">Edit</button>
-                <button type="button" class="btn-delete" onclick="deleteProduct(${i})">Delete</button>
+                <button type="button" class="btn-edit" onclick="editProduct(${product[0]})">Edit</button>
+                <button type="button" class="btn-delete" onclick="deleteProduct(${product[0]})">Delete</button>
             </td>  
         `;
     }
@@ -52,15 +52,77 @@ function deleteProduct(index) {
     let text = "Bạn có muốn xoá sản phẩm này không?";
     if (confirm(text) == true) {
         // Xoá sản phẩm dựa trên index
-        products.splice(index, 1);
+        products.splice(index - 1, 1);
     }
 
     displayProducts();   
 }
 
 // Edit sản phẩm
+function editProduct(index) {
+    // Lay thong tin san pham can sua
+    // let productToEdit = products.find(product => product[0] == index);
+
+    let productToEdit;
+    for(let i = 0; i < products.length; i++) {
+        const product = products[i];
+        if (product[0] == index) {
+            productToEdit = product;
+        }
+    }
+
+    if (productToEdit) {
+        populateEditForm(productToEdit);
+    } else {
+        alert('Product not found for editing');
+    }
+}
+
+function populateEditForm(product) {
+
+    // set gia tri cua product can edit vao form
+    document.getElementById('idProduct').value = product[0];
+    document.getElementById('name').value = product[1];
+    document.getElementById('price').value = product[2];
+}
+
+function updateProduct(idProduct) {
+    let editedName = document.getElementById('name').value;
+    let editedPrice = document.getElementById('price').value;
+
+    // let index = products.findIndex(product => product[0] == idProduct);
+    let index = -1;
+    for(let i = 0; i < products.length; i++) {
+        const product = products[i];
+        if (product[0] == idProduct) {
+            index = i;
+        }
+    }
+
+    if (index != -1) {
+        // Cap nhat thong tin
+        products[index][1] = editedName;
+        products[index][2] = editedPrice;
+
+        // show list san pham
+        displayProducts();
+    } else {
+        alert('Product not found for updating');
+    }
+}
 
 
+// sumbit form
+function submitForm() {
+    let idProduct = document.getElementById('idProduct').value;
 
-
-
+    if (idProduct) {
+        // Edit san pham
+        updateProduct(idProduct);
+    } else {
+        // Add san pham
+        addProduct();
+    }   
+   
+    document.getElementById("formProduct").reset();
+}

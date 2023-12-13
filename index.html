@@ -17,7 +17,8 @@
 
         <div class="form">
             <h2>Đăng kí sản phẩm</h2>
-            <form action="">
+            <form id="formProduct">
+                <input type="hidden" name="idProduct" id="idProduct">
                 <div class="form-input">
                     <label for="name" class="form-label">Name</label>
                     <input type="name" class="form-control" name="name" id="name">
@@ -26,7 +27,7 @@
                     <label for="price" class="form-label">Price</label>
                     <input type="number" class="form-control" name="price" id="price">
                 </div>
-                <button type="button" class="btn btn-create" onclick="addProduct()">Submit</button>
+                <button type="button" class="btn btn-create" onclick="submitForm()">Submit</button>
             </form>
         </div>
 
