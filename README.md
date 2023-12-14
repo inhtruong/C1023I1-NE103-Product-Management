@@ -14,3 +14,16 @@ function displayProduct() {
 
 displayProduct();
 ```
+
+### Object
+```
+class Product {
+    contructor(id, name, price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    // setter, getter cho các thuộc tính
+}
+```
