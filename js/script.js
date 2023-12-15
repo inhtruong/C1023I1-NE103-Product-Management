@@ -1,8 +1,25 @@
+class Product {
+    constructor(id, name, price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+}
+
+// Tạo mảng products và thêm sản phẩm
 let products = [
-    [1, "MacBook Air 13 inch M1 2020 7-core GPU", 1000],
-    [2, "Laptop Dell Vostro 15 3520 i3 1215U", 2000],
-    [3, "Laptop Asus TUF Gaming F15 FX506HE i7 11800H", 3000]
+    new Product(1, "MacBook Air 13 inch M1 2020 7-core GPU", 1000),
+    new Product(2, "Laptop Dell Vostro 15 3520 i3 1215U", 2000),
+    new Product(3, "Laptop Asus TUF Gaming F15 FX506HE i7 11800H", 3000)
 ];
+
+// tạo object của class Product
+let product1 = new Product();
+product1.id = 4;
+product1.name = "Laptop Dell Vostro 15 3520 i3 1215U";
+product1.price = 4000;
+// đưa object vào mảng products
+products.push(product1);
 
 function displayProducts() {
     const productListElement = document.getElementById('listProduct');
@@ -13,12 +30,12 @@ function displayProducts() {
         const product = products[i];
 
         productListElement.innerHTML += `
-            <td class="text-center">${product[0]}</td>
-            <td class="text-left">${product[1]}</td>
-            <td class="text-right">${product[2]} đồng</td>
+            <td class="text-center">${product.id}</td>
+            <td class="text-left">${product.name}</td>
+            <td class="text-right">${product.price} đồng</td>
             <td>
-                <button type="button" class="btn-edit" onclick="editProduct(${product[0]})">Edit</button>
-                <button type="button" class="btn-delete" onclick="deleteProduct(${product[0]})">Delete</button>
+                <button type="button" class="btn-edit" onclick="editProduct(${product.id})">Edit</button>
+                <button type="button" class="btn-delete" onclick="deleteProduct(${product.id})">Delete</button>
             </td>  
         `;
     }
