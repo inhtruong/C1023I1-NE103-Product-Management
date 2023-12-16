@@ -30,12 +30,12 @@ function displayProducts() {
         const product = products[i];
 
         productListElement.innerHTML += `
-            <td class="text-center">${product.id}</td>
+            <td class="text-center">${i+1}</td>
             <td class="text-left">${product.name}</td>
             <td class="text-right">${product.price} đồng</td>
             <td>
-                <button type="button" class="btn-edit" onclick="editProduct(${product.id})">Edit</button>
-                <button type="button" class="btn-delete" onclick="deleteProduct(${product.id})">Delete</button>
+                <button type="button" class="btn-edit" onclick="editProduct(${i})">Edit</button>
+                <button type="button" class="btn-delete" onclick="deleteProduct(${i})">Delete</button>
             </td>  
         `;
     }
@@ -54,7 +54,8 @@ function addProduct() {
     // Kiểm tra thông tin name và price có bị để trống không?
     if (name && price) {
         // Tạo 1 sản phẩm mới
-        let newProduct = [id, name, price];
+        // let newProduct = [id, name, price];
+        let newProduct = new Product(id, name, price);
         // thêm sản phẩm mới vào mảng products
         products.push(newProduct);
         // Hiển thị lại danh sách products
@@ -69,7 +70,7 @@ function deleteProduct(index) {
     let text = "Bạn có muốn xoá sản phẩm này không?";
     if (confirm(text) == true) {
         // Xoá sản phẩm dựa trên index
-        products.splice(index - 1, 1);
+        products.splice(index, 1);
     }
 
     displayProducts();   
@@ -83,7 +84,7 @@ function editProduct(index) {
     let productToEdit;
     for(let i = 0; i < products.length; i++) {
         const product = products[i];
-        if (product[0] == index) {
+        if (product.id == index+1) {
             productToEdit = product;
         }
     }
@@ -98,9 +99,9 @@ function editProduct(index) {
 function populateEditForm(product) {
 
     // set gia tri cua product can edit vao form
-    document.getElementById('idProduct').value = product[0];
-    document.getElementById('name').value = product[1];
-    document.getElementById('price').value = product[2];
+    document.getElementById('idProduct').value = product.id;
+    document.getElementById('name').value = product.name;
+    document.getElementById('price').value = product.price;
 }
 
 function updateProduct(idProduct) {
@@ -111,15 +112,15 @@ function updateProduct(idProduct) {
     let index = -1;
     for(let i = 0; i < products.length; i++) {
         const product = products[i];
-        if (product[0] == idProduct) {
+        if (product.id == idProduct) {
             index = i;
         }
     }
 
     if (index != -1) {
         // Cap nhat thong tin
-        products[index][1] = editedName;
-        products[index][2] = editedPrice;
+        products[index].name = editedName;
+        products[index].price = editedPrice;
 
         // show list san pham
         displayProducts();
@@ -131,7 +132,7 @@ function updateProduct(idProduct) {
 
 // sumbit form
 function submitForm() {
-    let idProduct = document.getElementById('idProduct').value;
+    let idProduct = parseInt(document.getElementById('idProduct').value);
 
     if (idProduct) {
         // Edit san pham
