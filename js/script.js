@@ -6,6 +6,24 @@ class Product {
     }
 }
 
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}
+
 // Tạo mảng products và thêm sản phẩm
 let products = [
     new Product(1, "MacBook Air 13 inch M1 2020 7-core GPU", 1000),
@@ -34,8 +52,8 @@ function displayProducts() {
             <td class="text-left">${product.name}</td>
             <td class="text-right">${product.price} đồng</td>
             <td>
-                <button type="button" class="btn-edit" onclick="editProduct(${i})">Edit</button>
-                <button type="button" class="btn-delete" onclick="deleteProduct(${i})">Delete</button>
+                <button type="button" class="btn-edit" onclick="editProduct(${i})"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button type="button" class="btn-delete" onclick="deleteProduct(${i})"><i class="fa-solid fa-trash"></i></button>
             </td>  
         `;
     }
@@ -60,8 +78,10 @@ function addProduct() {
         products.push(newProduct);
         // Hiển thị lại danh sách products
         displayProducts();
+
+        toastr["success"]("Sản phẩm đã được tạo mới thành công");
     } else {
-        alert('Vui lòng điền đầy đủ thông tin sản phẩm');
+        toastr["warning"]("Vui lòng điền đầy đủ thông tin sản phẩm");
     }
 }
 
@@ -74,6 +94,8 @@ function deleteProduct(index) {
     }
 
     displayProducts();   
+
+    toastr["success"]("Sản phẩm đã xoá khỏi danh sách thành công");
 }
 
 // Edit sản phẩm
@@ -92,12 +114,11 @@ function editProduct(index) {
     if (productToEdit) {
         populateEditForm(productToEdit);
     } else {
-        alert('Product not found for editing');
+        toastr["warning"]("Không tìm thấy sản phẩm để chỉnh sửa");
     }
 }
 
 function populateEditForm(product) {
-
     // set gia tri cua product can edit vao form
     document.getElementById('idProduct').value = product.id;
     document.getElementById('name').value = product.name;
@@ -124,8 +145,10 @@ function updateProduct(idProduct) {
 
         // show list san pham
         displayProducts();
+
+        toastr["success"]("Sản phẩm được thay đổi thành công");
     } else {
-        alert('Product not found for updating');
+        toastr["error"]("Không tìm thấy sản phẩm để cập nhật");
     }
 }
 
