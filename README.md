@@ -27,3 +27,11 @@ class Product {
     // setter, getter cho các thuộc tính
 }
 ```
+
+
+### Library cdn
+Link: https://cdnjs.com/
+
+Fontawesome: https://fontawesome.com/
+
+Toastr: https://github.com/CodeSeven/toastr

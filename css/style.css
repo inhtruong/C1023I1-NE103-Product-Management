@@ -73,8 +73,9 @@ button {
     flex-direction: column;
 }
 
-.form .form-control {
-    padding: 5px 0;
+.form .form-control,
+.head-search input {
+    padding: 5px 5px;
 }
 
 .form .btn {
@@ -89,8 +90,15 @@ button {
 .list table{
     width: 100%;
     border-collapse: collapse;
+    margin-top: 10px;
 }
 
-table td {
+table td, table th {
     padding: 10px 20px;
+}
+
+.list-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

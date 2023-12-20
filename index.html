@@ -36,13 +36,19 @@
         </div>
 
         <div class="list">
-            <h2>Danh sách sản phẩm</h2>
+            <div class="list-head">
+                <h2>Danh sách sản phẩm</h2>
+                <div class="head-search">
+                    <label for="searchProduct">Tìm kiếm sản phẩm:</label>
+                    <input type="text" id="searchProduct" oninput="searchProduct()">
+                </div>
+            </div>
             <table>
                 <thead>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Action</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Thao tác</th>
                 </thead>
                 <tbody id="listProduct">
                     <!-- render bằng js -->

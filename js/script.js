@@ -39,9 +39,11 @@ product1.price = 4000;
 // đưa object vào mảng products
 products.push(product1);
 
-function displayProducts() {
+function displayProducts(products) {
     const productListElement = document.getElementById('listProduct');
 
+    // Xóa danh sách cũ
+    productListElement.innerHTML = '';
     productListElement.innerHTML = '<tr>';
 
     for (let i = 0; i < products.length; i++) {
@@ -60,7 +62,7 @@ function displayProducts() {
     productListElement.innerHTML += '</tr>';
 }
 
-displayProducts();
+displayProducts(products);
 
 // Thêm sản phẩm
 function addProduct() {
@@ -77,7 +79,7 @@ function addProduct() {
         // thêm sản phẩm mới vào mảng products
         products.push(newProduct);
         // Hiển thị lại danh sách products
-        displayProducts();
+        displayProducts(products);
 
         toastr["success"]("Sản phẩm đã được tạo mới thành công");
     } else {
@@ -93,7 +95,7 @@ function deleteProduct(index) {
         products.splice(index, 1);
     }
 
-    displayProducts();   
+    displayProducts(products);   
 
     toastr["success"]("Sản phẩm đã xoá khỏi danh sách thành công");
 }
@@ -144,7 +146,7 @@ function updateProduct(idProduct) {
         products[index].price = editedPrice;
 
         // show list san pham
-        displayProducts();
+        displayProducts(products);
 
         toastr["success"]("Sản phẩm được thay đổi thành công");
     } else {
@@ -164,6 +166,28 @@ function submitForm() {
         // Add san pham
         addProduct();
     }   
-   
+
     document.getElementById("formProduct").reset();
 }
+
+function searchProduct() {
+    let searchKeyword = document.getElementById('searchProduct').value;
+    searchKeyword = searchKeyword.toLowerCase(); //
+
+    let filterList = [];
+
+    for(let i = 0; i < products.length; i++) {
+        const productName = products[i].name.toLowerCase();
+
+        if (productName.includes(searchKeyword)) {
+            filterList.push(products[i]);
+        }
+    }
+
+    //
+    displayProducts(filterList);
+}
+
+// function filterProduct(searchKeyword) {
+
+// }
