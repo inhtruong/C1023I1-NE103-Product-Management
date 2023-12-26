@@ -52,7 +52,7 @@ function displayProducts(products) {
         productListElement.innerHTML += `
             <td class="text-center">${i+1}</td>
             <td class="text-left">${product.name}</td>
-            <td class="text-right">${product.price} đồng</td>
+            <td class="text-right">${formatCurrency(product.price)} đồng</td>
             <td>
                 <button type="button" class="btn-edit" onclick="editProduct(${i})"><i class="fa-solid fa-pen-to-square"></i></button>
                 <button type="button" class="btn-delete" onclick="deleteProduct(${i})"><i class="fa-solid fa-trash"></i></button>
@@ -61,8 +61,6 @@ function displayProducts(products) {
     }
     productListElement.innerHTML += '</tr>';
 }
-
-displayProducts(products);
 
 // Thêm sản phẩm
 function addProduct() {
@@ -79,7 +77,7 @@ function addProduct() {
         // thêm sản phẩm mới vào mảng products
         products.push(newProduct);
         // Hiển thị lại danh sách products
-        displayProducts(products);
+        displayProductsAndUpdateStorage(products);
 
         toastr["success"]("Sản phẩm đã được tạo mới thành công");
     } else {
@@ -95,7 +93,7 @@ function deleteProduct(index) {
         products.splice(index, 1);
     }
 
-    displayProducts(products);   
+    displayProductsAndUpdateStorage(products);   
 
     toastr["success"]("Sản phẩm đã xoá khỏi danh sách thành công");
 }
@@ -146,7 +144,7 @@ function updateProduct(idProduct) {
         products[index].price = editedPrice;
 
         // show list san pham
-        displayProducts(products);
+        displayProductsAndUpdateStorage(products)
 
         toastr["success"]("Sản phẩm được thay đổi thành công");
     } else {
@@ -188,6 +186,48 @@ function searchProduct() {
     displayProducts(filterList);
 }
 
-// function filterProduct(searchKeyword) {
+// Hàm để lấy danh sách sản phẩm từ localStorage
+function getProductsFromLocalStorage() {
+    const storedProducts = localStorage.getItem('listProd');
+    // if (searchProduct) {
+    //     return JSON.parse(storedProducts);
+    // } else {
+    //     return [];
+    // }
+    return storedProducts ? JSON.parse(storedProducts) : [];
+}
 
-// }
+// Hàm để cập nhật danh sách sản phẩm trong localStorage
+function updateLocalStorage() {
+    localStorage.setItem('listProd', JSON.stringify(products));
+}
+
+// Hàm để hiển thị sản phẩm và cập nhật localStorage
+function displayProductsAndUpdateStorage(products) {
+    displayProducts(products);
+    updateLocalStorage();
+}
+
+// Hàm khởi tạo, gọi khi trang được tải
+function init() {
+    // Lấy danh sách sản phẩm từ localStorage
+    products = getProductsFromLocalStorage();
+    // Hiển thị danh sách sản phẩm
+    displayProducts(products);
+}
+
+function formatCurrency(amount) {
+    // Kiểm tra nếu giá trị đầu vào không phải là số
+    if (isNaN(amount)) {
+        return "Invalid input";
+    }
+
+    // Chuyển đổi số thành chuỗi và chia thành các chuỗi con
+    const parts = amount.toString().split('.');
+
+    // Thêm dấu phẩy ngăn cách hàng nghìn
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Thêm ký tự đơn vị đồng
+    return parts.join(',');
+}
